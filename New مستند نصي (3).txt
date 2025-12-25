@@ -1,0 +1,43 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
+import uvicorn
+
+app = FastAPI(
+    title="AI Plagiarism Checker",
+    description="نظام كشف الانتحال والذكاء الاصطناعي",
+    version="2.0.0"
+)
+
+# CORS للوصول عبر الإنترنت
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+async def home():
+    return {
+        "message": " AI Plagiarism Checker يعمل بنجاح!",
+        "status": "active",
+        "version": "2.0.0"
+    }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+
+@app.get("/api/test")
+async def test_api():
+    return {
+        "message": " API يعمل عبر الإنترنت",
+        "endpoints": ["/", "/health", "/api/test"],
+        "server_time": datetime.now().isoformat()
+    }
+
+if __name__ == "__main__":
+    print(" Server starting on http://localhost:8080")
+    uvicorn.run(app, host="0.0.0.0", port=8080)

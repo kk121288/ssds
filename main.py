@@ -20,7 +20,7 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS settings
+# إعدادات CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -29,7 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# إعداد المجلدات
+# إنشاء المجلدات اللازمة
 os.makedirs("static", exist_ok=True)
 os.makedirs("uploads", exist_ok=True)
 os.makedirs("templates", exist_ok=True)
